@@ -2,148 +2,122 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="theme-color" content="#090b0f">
-<title>NEXT LEVEL | 3D Car Studio</title>
+<title>NEXT LEVEL 3D Car Customizer</title>
 <style>
-:root{--bg:#090b0f;--panel:#141820;--line:#303641;--gold:#f1c45a;--muted:#aeb5c1}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#f7f7f8;font-family:Arial,Helvetica,sans-serif}button,select,input{font:inherit}button{cursor:pointer}
-header{padding:20px 16px;border-bottom:1px solid var(--line);background:#0c0e13;position:sticky;top:0;z-index:5}.brand{font-weight:900;letter-spacing:2px;font-size:24px;color:var(--gold)}.tagline{font-size:10px;letter-spacing:2px;color:var(--muted);margin-top:7px}
-main{max-width:1000px;margin:auto;padding:18px 14px 40px}.eyebrow{font-size:11px;letter-spacing:2px;color:var(--gold);font-weight:bold}h1{font-size:clamp(30px,8vw,54px);line-height:1.04;margin:12px 0}.gold{color:var(--gold)}.muted{color:var(--muted);line-height:1.55}.section-title{font-size:22px;margin:28px 0 12px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:15px;margin-top:15px}
-label{display:block;color:#cbd0d9;font-size:13px;margin:13px 0 7px}select,input{width:100%;padding:13px;border:1px solid #454c58;border-radius:10px;background:#0d1016;color:#fff}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.tile{border:1px solid var(--line);border-radius:12px;padding:12px;background:#10141b;text-align:left;color:#fff;min-height:85px}.tile strong{display:block;margin-bottom:6px}.tile small{color:var(--muted);line-height:1.4}
-.viewer{margin-top:14px;border:1px solid #3a414d;border-radius:14px;overflow:hidden;background:radial-gradient(ellipse at 50% 45%,#303744,#10131a 72%)}#car3d{height:280px;width:100%;display:block;touch-action:none;outline:none}.viewer-top{display:flex;justify-content:space-between;align-items:center;padding:12px 12px 0;font-size:11px;letter-spacing:1.5px;color:var(--gold);font-weight:bold}.viewer-controls{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;padding:0 10px 12px}.viewer-controls button{background:#222833;border:1px solid #454c58;color:#fff;border-radius:9px;padding:10px 4px;font-size:12px}.viewer-note{text-align:center;color:var(--muted);font-size:11px;padding:0 10px 12px}
-.status{font-size:13px;color:var(--gold);min-height:18px}.colors{display:flex;gap:12px;flex-wrap:wrap}.swatch{width:38px;height:38px;border-radius:50%;border:2px solid #fff5;padding:0}.swatch.active{outline:2px solid var(--gold);outline-offset:3px}
-.primary{background:var(--gold);color:#151515;border:0;border-radius:10px;padding:14px;font-weight:800;width:100%;margin-top:15px}.secondary{background:#222833;color:white;border:1px solid #454c58;border-radius:10px;padding:12px;width:100%;margin-top:8px}.checkrow{display:flex;gap:9px;align-items:center;padding:10px 0;border-bottom:1px solid #2a3039}.checkrow input{width:auto;accent-color:var(--gold)}.price{font-size:23px;color:var(--gold);font-weight:bold}.foot{border-top:1px solid var(--line);padding:24px 15px;text-align:center;color:var(--muted);font-size:12px}
-@media(min-width:700px){.layout{display:grid;grid-template-columns:1fr 1fr;gap:18px}.grid{grid-template-columns:repeat(3,minmax(0,1fr))}#car3d{height:360px}}
+:root{--bg:#090b0f;--panel:#141820;--line:#303744;--gold:#f1c45a;--muted:#aeb5c1}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#f7f7f8;font-family:Arial,Helvetica,sans-serif}header{padding:18px 15px;background:#0c0e13;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:4}.logo{font-size:24px;font-weight:900;letter-spacing:2px;color:var(--gold)}.tag{font-size:10px;color:var(--muted);letter-spacing:2px;margin-top:6px}
+main{max-width:1050px;margin:auto;padding:15px}.eyebrow{font-size:11px;letter-spacing:1.7px;color:var(--gold);font-weight:bold}h1{font-size:clamp(30px,7vw,48px);line-height:1.05;margin:12px 0}.gold{color:var(--gold)}.muted{color:var(--muted);line-height:1.5}.panel{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:14px;margin:14px 0}label{display:block;font-size:13px;color:#d7dbe2;margin:12px 0 6px}select,input[type=text]{width:100%;padding:12px;border-radius:9px;border:1px solid #454c58;background:#0d1016;color:#fff}
+.layout{display:grid;grid-template-columns:1fr;gap:12px}.viewer{background:radial-gradient(ellipse at center,#303744,#10131a 70%);border:1px solid #3a414d;border-radius:12px;overflow:hidden;margin-top:12px}.viewerbar{display:flex;justify-content:space-between;padding:12px;color:var(--gold);font-size:11px;font-weight:bold;letter-spacing:1px}#carCanvas{display:block;width:100%;height:300px;touch-action:none}.controls{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;padding:10px}.controls button,.btn2{background:#222833;color:#fff;border:1px solid #454c58;border-radius:8px;padding:10px 4px;font-size:12px}.hint{text-align:center;color:var(--muted);font-size:11px;padding:0 10px 12px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.tile{background:#10141b;border:1px solid var(--line);border-radius:10px;padding:10px;color:#fff;text-align:left;min-height:67px}.tile strong{display:block;font-size:13px;margin-bottom:4px}.tile small{color:var(--muted);font-size:11px}.tile.active{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold)}
+.colors{display:flex;gap:12px;flex-wrap:wrap;padding:5px 0}.swatch{width:35px;height:35px;border-radius:50%;border:2px solid #ffffff55}.swatch.active{outline:2px solid var(--gold);outline-offset:3px}
+.primary{width:100%;background:var(--gold);color:#171717;font-weight:bold;border:0;border-radius:9px;padding:13px;margin-top:12px}.status{font-size:12px;color:var(--gold);min-height:17px;margin-top:8px}.check{display:flex;gap:8px;align-items:center;border-bottom:1px solid #2b3039;padding:10px 0;font-size:13px}.check input{accent-color:var(--gold)}.summary{font-size:13px;line-height:1.7;color:#dce0e7;overflow-wrap:anywhere}.price{font-size:22px;color:var(--gold);font-weight:bold}.foot{text-align:center;color:var(--muted);font-size:11px;padding:24px}
+@media(min-width:760px){main{padding:22px}.layout{grid-template-columns:1.05fr .95fr}#carCanvas{height:380px}.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 </style>
 </head>
 <body>
-<header><div class="brand">NEXT LEVEL®</div><div class="tagline">INDIAN CAR CUSTOMIZATION STUDIO</div></header>
+<header><div class="logo">NEXT LEVEL®</div><div class="tag">3D CAR CUSTOMIZATION STUDIO</div></header>
 <main>
-<p class="eyebrow">BUILD YOUR DREAM RIDE</p>
-<h1>Your Car.<br><span class="gold">Your Rules.</span></h1>
-<p class="muted">Choose an Indian car, rotate your 3D preview, select accessories and plan your custom interior.</p>
+<div class="eyebrow">BUILD • MODIFY • PERSONALIZE</div>
+<h1>Your Car.<br><span class="gold">Your Creation.</span></h1>
+<p class="muted">Choose a car and customize body colour, wheels, seats, audio, display, camera and exterior style. This is a stylized 3D prototype, not a manufacturer-accurate model.</p>
 <div class="layout">
 <section class="panel">
-<div class="eyebrow">01 / CAR SELECTOR</div>
-<label for="brand">Choose brand</label><select id="brand"></select>
-<label for="model">Choose model</label><select id="model"></select>
-<label for="variant">Variant / trim</label><select id="variant"><option>Standard</option><option>Base</option><option>Mid</option><option>Top</option><option>Custom build</option></select>
+<div class="eyebrow">01 / SELECT YOUR CAR</div>
+<label for="brand">Car brand</label><select id="brand"></select>
+<label for="model">Car model</label><select id="model"></select>
 <div class="viewer">
-<div class="viewer-top"><span>LIVE 3D VIEWER</span><span id="viewLabel">360°</span></div>
-<canvas id="car3d" aria-label="Interactive 3D car preview"></canvas>
-<div class="viewer-controls">
-<button id="rotateBtn">⟳ Rotate</button><button id="zoomIn">＋ Zoom</button><button id="zoomOut">－ Zoom</button><button id="resetView">Reset</button>
+<div class="viewerbar"><span>INTERACTIVE 3D VIEW</span><span id="viewerModel">CAR STUDIO</span></div>
+<canvas id="carCanvas" aria-label="Interactive 3D customizable car"></canvas>
+<div class="controls"><button id="autoRotate">⟳ Rotate</button><button id="zoomIn">＋ Zoom</button><button id="zoomOut">− Zoom</button><button id="reset">Reset</button></div>
+<div class="hint">Drag to rotate • Pinch or buttons to zoom</div>
 </div>
-<div class="viewer-note" id="viewerStatus">Drag to rotate • Pinch or use zoom buttons</div>
-</div>
-<label>Body colour</label>
+<div class="eyebrow" style="margin-top:18px">BODY COLOUR</div>
 <div class="colors" id="colors">
-<button class="swatch active" aria-label="Red" style="background:#d93434" data-color="#d93434"></button>
-<button class="swatch" aria-label="White" style="background:#f1f1ed" data-color="#f1f1ed"></button>
-<button class="swatch" aria-label="Black" style="background:#17191e" data-color="#17191e"></button>
-<button class="swatch" aria-label="Gold" style="background:#d5a735" data-color="#d5a735"></button>
-<button class="swatch" aria-label="Blue" style="background:#2456a6" data-color="#2456a6"></button>
-<button class="swatch" aria-label="Green" style="background:#426c4a" data-color="#426c4a"></button>
+<button class="swatch active" aria-label="Racing red" style="background:#d93434" data-color="#d93434"></button><button class="swatch" aria-label="Pearl white" style="background:#f3f0e8" data-color="#f3f0e8"></button><button class="swatch" aria-label="Midnight black" style="background:#17191e" data-color="#17191e"></button><button class="swatch" aria-label="Gold" style="background:#d5a735" data-color="#d5a735"></button><button class="swatch" aria-label="Blue" style="background:#2456a6" data-color="#2456a6"></button><button class="swatch" aria-label="Forest green" style="background:#426c4a" data-color="#426c4a"></button><button class="swatch" aria-label="Silver" style="background:#a9b0b9" data-color="#a9b0b9"></button>
 </div>
-<button class="primary" id="saveBuild">Save my build</button><div class="status" id="buildStatus" aria-live="polite"></div>
 </section>
 <section class="panel">
-<div class="eyebrow">02 / ACCESSORY STUDIO</div><p class="muted">Select the accessories you want to include in your planned build.</p>
-<div id="accessories"></div><div style="margin-top:16px">Estimated accessory budget</div><div class="price" id="total">₹0</div>
-<p class="muted" style="font-size:12px">Illustrative estimates only. Actual prices depend on car model, material, fitment and local shop.</p><button class="secondary" id="clearAccessories">Clear accessories</button>
+<div class="eyebrow">02 / EXTERIOR MODS</div>
+<div class="grid" id="exteriorOptions"></div>
+<div class="eyebrow" style="margin-top:22px">03 / INTERIOR & SEATS</div>
+<div class="grid" id="seatOptions"></div>
+<label for="seatColour">Seat cover colour</label><select id="seatColour"><option value="#202124">Black</option><option value="#7c332b">Wine red</option><option value="#b7a17c">Beige</option><option value="#3b4b65">Navy blue</option><option value="#49372b">Tan brown</option></select>
+<div class="eyebrow" style="margin-top:22px">04 / AUDIO, DISPLAY & CAMERA</div>
+<div id="techOptions"></div>
+<div class="eyebrow" style="margin-top:22px">05 / ACCESSORIES</div>
+<div id="accessoryOptions"></div>
+<div style="margin-top:16px">Estimated add-on budget</div><div class="price" id="total">₹0</div>
+<p class="muted" style="font-size:11px">Planning estimates only; prices vary by car, brand, material and installation.</p>
+<button class="primary" id="save">Save build on this device</button><button class="primary" id="share" style="background:#252b36;color:white;border:1px solid #454c58">Share / copy build summary</button>
+<div class="status" id="status"></div>
 </section>
 </div>
-<section><h2 class="section-title">Explore Indian car brands</h2><div class="grid" id="brandCards"></div><p class="muted" style="font-size:12px">Popular models are listed for planning. Availability and variants may vary by model year and location.</p></section>
-<section class="panel">
-<div class="eyebrow">03 / INTERIOR DESIGN</div><h2 style="margin:8px 0">Make the cabin yours</h2><div class="grid" id="interiorOptions"></div>
-<label for="notes">Custom design notes</label><input id="notes" placeholder="e.g. black seat covers, red stitching, 7D mats">
-<button class="primary" id="saveDesign">Save interior plan</button><div class="status" id="designStatus" aria-live="polite"></div>
-</section>
-<section class="panel"><div class="eyebrow">04 / YOUR BUILD SUMMARY</div><div id="summary" class="muted">Choose a car and accessories to see your plan.</div><button class="primary" id="shareBuild">Share / copy build summary</button><div class="status" id="shareStatus" aria-live="polite"></div></section>
+<section class="panel"><div class="eyebrow">YOUR BUILD SUMMARY</div><div id="summary" class="summary">Choose options to build your custom car.</div></section>
 </main>
-<footer class="foot">© 2026 NEXT LEVEL • Interactive stylized 3D prototype, not an exact manufacturer CAD model. Vehicle names belong to their respective owners.</footer>
+<div class="foot">© 2026 NEXT LEVEL • Stylized 3D prototype. Real model-specific parts and exact fitment require separate 3D assets and compatibility data.</div>
+<script>
+/* App controls are independent of the optional 3D engine so menus still work if WebGL is unavailable. */
+const CARS={
+"Maruti Suzuki":["Alto K10","S-Presso","Celerio","Wagon R","Swift","Dzire","Baleno","Fronx","Brezza","Ertiga","XL6","Grand Vitara","Jimny","Invicto","Eeco"],
+"Mahindra":["Thar","Thar ROXX","Scorpio-N","Scorpio Classic","Bolero","Bolero Neo","XUV 3XO","XUV700","BE 6","XEV 9e"],
+"Tata Motors":["Tiago","Tigor","Altroz","Punch","Nexon","Curvv","Harrier","Safari","Nexon EV","Punch EV"],
+"Hyundai":["Grand i10 Nios","i20","Aura","Exter","Venue","Creta","Alcazar","Verna"],
+"Kia":["Sonet","Seltos","Carens","Syros","EV6","EV9"],
+"Toyota":["Glanza","Taisor","Urban Cruiser Hyryder","Innova Crysta","Innova Hycross","Fortuner","Hilux","Camry"],
+"Honda":["Amaze","City","Elevate"],"Renault":["Kwid","Triber","Kiger"],"Nissan":["Magnite"],"MG":["Comet EV","Windsor EV","Astor","Hector","Gloster","ZS EV"],"Volkswagen":["Virtus","Taigun"],"Skoda":["Slavia","Kushaq","Kylaq"],"Force Motors":["Gurkha","Urbania"],"BYD":["Atto 3","Seal","eMax 7"]
+};
+const EXTERIOR=[
+{id:"spoiler",name:"Rear spoiler",desc:"Sporty rear profile",price:4500},
+{id:"bodykit",name:"Body kit",desc:"Front lip + side skirts",price:14000},
+{id:"wheels",name:"Alloy wheels",desc:"Custom wheel style",price:28000},
+{id:"roof",name:"Black roof",desc:"Two-tone roof finish",price:6500},
+{id:"lift",name:"Raised stance",desc:"SUV-inspired stance",price:9000},
+{id:"lights",name:"LED light style",desc:"Modern light appearance",price:5000}
+];
+const SEATS=[
+{id:"seatSport",name:"Sport seat style",desc:"Supportive sporty cabin",price:6500},
+{id:"seatCover",name:"Premium seat covers",desc:"Leatherette upholstery",price:5500},
+{id:"floorMats",name:"7D floor mats",desc:"Full cabin floor coverage",price:2500},
+{id:"dashTrim",name:"Dashboard trim",desc:"Interior accent finish",price:1800},
+{id:"ambient",name:"Ambient lighting",desc:"Cabin lighting effect",price:2500}
+];
+const TECH=[
+{id:"audio",name:"Sound system upgrade",desc:"Speaker + subwoofer package",price:12000},
+{id:"display",name:"Touchscreen display",desc:"Infotainment screen upgrade",price:9000},
+{id:"camera",name:"Reverse camera",desc:"Rear-view camera kit",price:2500},
+{id:"dashcam",name:"Dash camera",desc:"Front recording camera",price:3500},
+{id:"sensors",name:"Parking sensors",desc:"Parking assistance kit",price:1800}
+];
+const ACCESS=[
+{id:"steering",name:"Steering cover",price:700},{id:"sill",name:"Door sill plates",price:1200},{id:"bootmat",name:"Boot / trunk mat",price:1500},{id:"cushions",name:"Neck & lumbar cushions",price:900}
+];
+const $=id=>document.getElementById(id);let bodyColor="#d93434",seatColor="#202124",selected=new Set(),auto=false;
+function optionsHtml(arr){return arr.map(x=>`<button class="tile" data-option="${x.id}"><strong>${x.name}</strong><small>${x.desc||""}<br>₹${x.price.toLocaleString("en-IN")}</small></button>`).join("")}
+function renderChoices(){ $("exteriorOptions").innerHTML=optionsHtml(EXTERIOR);$("seatOptions").innerHTML=optionsHtml(SEATS);$("techOptions").innerHTML=TECH.map(x=>`<label class="check"><input type="checkbox" data-option="${x.id}"><span style="flex:1">${x.name}<br><small style="color:#aeb5c1">${x.desc}</small></span><b>₹${x.price.toLocaleString("en-IN")}</b></label>`).join("");$("accessoryOptions").innerHTML=ACCESS.map(x=>`<label class="check"><input type="checkbox" data-option="${x.id}"><span style="flex:1">${x.name}</span><b>₹${x.price.toLocaleString("en-IN")}</b></label>`).join("");document.querySelectorAll("[data-option]").forEach(el=>el.addEventListener(el.tagName==="BUTTON"?"click":"change",()=>{const id=el.dataset.option;if(el.tagName==="BUTTON"){selected.has(id)?selected.delete(id):selected.add(id);el.classList.toggle("active",selected.has(id));}else{el.checked?selected.add(id):selected.delete(id);}refresh();}));}
+function fillModels(){const b=$("brand").value;$("model").innerHTML=CARS[b].map(x=>`<option>${x}</option>`).join("");$("viewerModel").textContent=$("model").value.toUpperCase();if(window.update3DCar)window.update3DCar();}
+function getOption(id){return [...EXTERIOR,...SEATS,...TECH,...ACCESS].find(x=>x.id===id);}
+function refresh(){let total=0;selected.forEach(id=>{const o=getOption(id);if(o)total+=o.price;});$("total").textContent="₹"+total.toLocaleString("en-IN")+" approx.";const seat=$("seatColour").selectedOptions[0].text;const b=`<p><b>Car:</b> ${$("brand").value} ${$("model").value}</p><p><b>Body colour:</b> ${bodyColor}</p><p><b>Seat cover colour:</b> ${seat}</p><p><b>Selected modifications:</b> ${[...selected].map(id=>getOption(id)?.name).filter(Boolean).join(", ")||"None selected"}</p><p><b>Estimated parts budget:</b> ${$("total").textContent}</p>`;$("summary").innerHTML=b;if(window.update3DStyle)window.update3DStyle({bodyColor,seatColor,selected:[...selected]});}
+$("brand").innerHTML=Object.keys(CARS).map(x=>`<option>${x}</option>`).join("");$("brand").addEventListener("change",fillModels);$("model").addEventListener("change",()=>{$("viewerModel").textContent=$("model").value.toUpperCase();if(window.update3DCar)window.update3DCar();refresh();});$("seatColour").addEventListener("change",()=>{seatColor=$("seatColour").value;refresh();});
+$("colors").querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>{bodyColor=b.dataset.color;$("colors").querySelectorAll("button").forEach(x=>x.classList.toggle("active",x===b));refresh();}));
+$("save").addEventListener("click",()=>{try{localStorage.setItem("nextLevel3DBuild",JSON.stringify({brand:$("brand").value,model:$("model").value,bodyColor,seatColor,selected:[...selected]}));$("status").textContent="Build saved on this device.";}catch(e){$("status").textContent="Save unavailable in this browser; share your build summary instead.";}});
+$("share").addEventListener("click",async()=>{const text=`NEXT LEVEL CUSTOM BUILD\nCar: ${$("brand").value} ${$("model").value}\nBody colour: ${bodyColor}\nSeat cover colour: ${$("seatColour").selectedOptions[0].text}\nMods: ${[...selected].map(id=>getOption(id)?.name).filter(Boolean).join(", ")||"None"}\nBudget estimate: ${$("total").textContent}\nPrices are estimates; verify compatibility and fitment.`;try{if(navigator.share)await navigator.share({title:"My NEXT LEVEL build",text});else if(navigator.clipboard){await navigator.clipboard.writeText(text);$("status").textContent="Build summary copied.";}else $("status").textContent=text;}catch(e){$("status").textContent="Share cancelled.";}});
+
+renderChoices();fillModels();refresh();
+</script>
 
 <script type="module">
-import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js';
-
-const catalogue={
-"Maruti Suzuki":["Alto K10","S-Presso","Celerio","Wagon R","Swift","Dzire","Baleno","Fronx","Brezza","Ertiga","XL6","Grand Vitara","Jimny","Invicto","Eeco","Ignis","Victoris"],
-"Mahindra":["Thar","Thar ROXX","Scorpio-N","Scorpio Classic","Bolero","Bolero Neo","XUV 3XO","XUV700","BE 6","XEV 9e"],
-"Tata Motors":["Tiago","Tigor","Altroz","Punch","Nexon","Curvv","Harrier","Safari","Punch EV","Nexon EV","Tiago EV","Curvv EV","Harrier EV"],
-"Hyundai":["Grand i10 Nios","i20","Aura","Exter","Venue","Creta","Alcazar","Verna","Ioniq 5"],
-"Kia":["Sonet","Seltos","Carens","Carens Clavis","Syros","EV6","EV9"],
-"Toyota":["Glanza","Taisor","Rumion","Urban Cruiser Hyryder","Innova Crysta","Innova Hycross","Fortuner","Hilux","Camry","Land Cruiser 300"],
-"Honda":["Amaze","City","Elevate"],"Renault":["Kwid","Triber","Kiger"],"Nissan":["Magnite","X-Trail"],
-"MG":["Comet EV","Windsor EV","Astor","Hector","Hector Plus","Gloster","ZS EV"],"Volkswagen":["Virtus","Taigun","Tiguan"],
-"Skoda":["Slavia","Kushaq","Kylaq","Kodiaq"],"Citroën":["C3","C3 Aircross","Basalt","eC3"],"Force Motors":["Gurkha","Urbania"],
-"Isuzu":["D-Max V-Cross","MU-X"],"BYD":["Atto 3","Seal","eMax 7","Sealion 7"],"VinFast":["VF 6","VF 7"]
-};
-const accessories=[
-["Seat covers","₹2,500–₹18,000",5500],["3D / 7D floor mats","₹1,000–₹6,000",2500],["Dashboard trim","₹800–₹5,000",1800],["Door-panel upholstery","₹1,500–₹8,000",3000],["Ambient cabin lighting","₹1,000–₹7,000",2500],["Steering cover","₹300–₹2,000",700],["Neck / lumbar cushions","₹400–₹2,500",900],["Touchscreen / infotainment","₹4,000–₹25,000",9000],["Speaker upgrade","₹2,000–₹18,000",6000],["Reverse camera","₹1,000–₹6,000",2500],["Door sill plates","₹500–₹3,000",1200],["Boot / trunk mat","₹700–₹3,500",1500],["Sunshades","₹300–₹2,000",700],["Exterior body kit","₹3,000–₹35,000",12000],["Alloy wheels (set)","₹15,000–₹80,000",30000],["LED lighting upgrade","₹1,000–₹12,000",4000]
-];
-const interiors=[["Black leatherette","Clean premium black cabin"],["Black + red stitching","Sporty contrast finish"],["Beige luxury","Light, airy look"],["Tan / brown","Classic warm interior"],["7D mats + matching trim","Coordinated floor and panels"],["Ambient lighting","Choose a subtle cabin glow"]];
-const $=id=>document.getElementById(id);let chosenColor="#d93434";
-function fillBrands(){$("brand").innerHTML=Object.keys(catalogue).map(b=>`<option>${b}</option>`).join("");}
-function fillModels(){const b=$("brand").value;$("model").innerHTML=catalogue[b].map(m=>`<option>${m}</option>`).join("");updatePreview();}
-function updatePreview(){$("viewLabel").textContent=$("model").value.toUpperCase();buildCar();updateSummary();}
-function renderAccessories(){$("accessories").innerHTML=accessories.map((a,i)=>`<label class="checkrow"><input type="checkbox" data-index="${i}"><span style="flex:1">${a[0]}<br><small style="color:#aeb5c1">${a[1]}</small></span></label>`).join("");$("accessories").querySelectorAll("input").forEach(x=>x.addEventListener("change",()=>{updateTotal();updateSummary();}));}
-function updateTotal(){let sum=0;$("accessories").querySelectorAll("input:checked").forEach(x=>sum+=accessories[+x.dataset.index][2]);$("total").textContent="₹"+sum.toLocaleString("en-IN")+" approx.";}
-function renderBrandCards(){$("brandCards").innerHTML=Object.entries(catalogue).map(([b,models])=>`<button class="tile" data-brand="${b}"><strong>${b}</strong><small>${models.length} popular models<br>${models.slice(0,4).join(" • ")}</small></button>`).join("");$("brandCards").querySelectorAll("button").forEach(btn=>btn.addEventListener("click",()=>{$("brand").value=btn.dataset.brand;fillModels();window.scrollTo({top:0,behavior:"smooth"});}));}
-function renderInterior(){$("interiorOptions").innerHTML=interiors.map((x,i)=>`<label class="tile"><input type="radio" name="interior" value="${x[0]}" ${i===0?"checked":""} style="width:auto;margin:0 0 10px;accent-color:#f1c45a"><strong>${x[0]}</strong><small>${x[1]}</small></label>`).join("");document.querySelectorAll('input[name="interior"]').forEach(x=>x.addEventListener("change",updateSummary));}
-function getBuild(){const selected=[...$("accessories").querySelectorAll("input:checked")].map(x=>accessories[+x.dataset.index][0]);return{brand:$("brand").value,model:$("model").value,variant:$("variant").value,colour:chosenColor,accessories:selected,estimatedBudget:$("total").textContent,interior:document.querySelector('input[name="interior"]:checked')?.value||"Not selected",notes:$("notes").value.trim()};}
-function updateSummary(){if(!$("summary"))return;const b=getBuild();$("summary").innerHTML=`<p><b>Car:</b> ${b.brand} ${b.model} (${b.variant})</p><p><b>Colour:</b> ${b.colour}</p><p><b>Interior:</b> ${b.interior}</p><p><b>Accessories:</b> ${b.accessories.join(", ")||"None selected"}</p><p><b>Estimated accessory budget:</b> ${b.estimatedBudget}</p><p><b>Notes:</b> ${b.notes||"None"}</p>`;}
-$("brand").addEventListener("change",fillModels);$("model").addEventListener("change",updatePreview);$("variant").addEventListener("change",updateSummary);$("notes").addEventListener("input",updateSummary);
-$("colors").querySelectorAll("button").forEach(btn=>btn.addEventListener("click",()=>{chosenColor=btn.dataset.color;$("colors").querySelectorAll("button").forEach(b=>b.classList.toggle("active",b===btn));if(carPaint)carPaint.color.set(chosenColor);$("buildStatus").textContent="Colour selected: "+chosenColor;updateSummary();}));
-$("saveBuild").addEventListener("click",()=>{try{localStorage.setItem("nextLevelBuild",JSON.stringify(getBuild()));$("buildStatus").textContent="Build saved on this device.";}catch(e){$("buildStatus").textContent="Build prepared. Use Share / copy summary."; }});
-$("clearAccessories").addEventListener("click",()=>{$("accessories").querySelectorAll("input").forEach(x=>x.checked=false);updateTotal();updateSummary();});
-$("saveDesign").addEventListener("click",()=>{const b=getBuild();try{localStorage.setItem("nextLevelInterior",JSON.stringify({interior:b.interior,notes:b.notes,car:b.brand+" "+b.model}));$("designStatus").textContent="Interior plan saved on this device.";}catch(e){$("designStatus").textContent="Interior plan selected: "+b.interior;}});
-$("shareBuild").addEventListener("click",async()=>{const b=getBuild();const txt=`NEXT LEVEL BUILD\nCar: ${b.brand} ${b.model}\nVariant: ${b.variant}\nColour: ${b.colour}\nInterior: ${b.interior}\nAccessories: ${b.accessories.join(", ")||"None selected"}\nEstimated accessory budget: ${b.estimatedBudget}\nNotes: ${b.notes||"None"}\nEstimates are illustrative; confirm local prices and fitment.`;try{if(navigator.share){await navigator.share({title:"My NEXT LEVEL build",text:txt});$("shareStatus").textContent="Share sheet opened.";}else if(navigator.clipboard){await navigator.clipboard.writeText(txt);$("shareStatus").textContent="Summary copied.";}else{$("shareStatus").textContent=txt;}}catch(e){$("shareStatus").textContent="Share cancelled.";}});
-
-/* Three.js scene: a lightweight procedural stylized car, no external model file needed */
-const canvas=$("car3d");let renderer,scene,camera,carGroup,carPaint,dragging=false,lastX=0,lastY=0,autoRotate=false,zoom=7.2,pinchStart=0,baseZoom=7.2;
-function mat(color,roughness=.45,metalness=.12){return new THREE.MeshStandardMaterial({color,roughness,metalness});}
-const glassMat=mat(0x8bb9cc,.25,.15),rubberMat=mat(0x17191d,.9),rimMat=mat(0xb8bec7,.25,.75),darkMat=mat(0x252a32,.6,.2);
-function box(parent,w,h,d,x,y,z,material,bevel=false){let mesh=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),material);mesh.position.set(x,y,z);parent.add(mesh);return mesh;}
-function cylinder(parent,radius,length,x,y,z,material){let mesh=new THREE.Mesh(new THREE.CylinderGeometry(radius,radius,length,24),material);mesh.rotation.x=Math.PI/2;mesh.position.set(x,y,z);parent.add(mesh);return mesh;}
-function makeWheel(parent,x,z){const tire=new THREE.Mesh(new THREE.CylinderGeometry(.42,.42,.24,24),rubberMat);tire.rotation.x=Math.PI/2;tire.position.set(x,.48,z);parent.add(tire);const rim=new THREE.Mesh(new THREE.CylinderGeometry(.23,.23,.255,20),rimMat);rim.rotation.x=Math.PI/2;rim.position.set(x,.48,z);parent.add(rim);const hub=new THREE.Mesh(new THREE.CylinderGeometry(.09,.09,.26,16),darkMat);hub.rotation.x=Math.PI/2;hub.position.set(x,.48,z);parent.add(hub);}
-function buildCar(){if(!scene)return;if(carGroup)scene.remove(carGroup);carGroup=new THREE.Group();scene.add(carGroup);
-const bodyMat=mat(chosenColor,.32,.24);carPaint=bodyMat;const model=$("model").value.toLowerCase();const suv=/thar|scorpio|bolero|fortuner|gurkha|xuv|harrier|safari|brezza|punch|nexon|creta|seltos|venue|jimny|g urkha/.test(model);
-const bodyW=suv?2.15:1.85,bodyL=suv?3.55:3.15,bodyH=suv?1.05:.78;
-box(carGroup,bodyW,bodyH,bodyL,0,.95,0,bodyMat);
-const cabinW=suv?1.72:1.52,cabinH=suv?1.0:.83,cabinL=suv?1.78:1.55;
-box(carGroup,cabinW,cabinH,cabinL,0,1.72,-.12,bodyMat);
-box(carGroup,cabinW-.12,cabinH-.18,cabinL-.18,0,1.76,-.12,glassMat);
-box(carGroup,cabinW+.04,.12,cabinL+.08,0,2.17,-.12,bodyMat);
-box(carGroup,bodyW+.03,.12,bodyL*.22,0,1.05,bodyL*.38,darkMat);
-for(const x of [-bodyW/2-.01,bodyW/2+.01]){box(carGroup,.07,.19,bodyL*.6,x,.85,0,darkMat);box(carGroup,.08,.13,.36,x,1.2,bodyL*.36,mat(0xffe5a0,.3));box(carGroup,.08,.13,.36,x,1.2,-bodyL*.36,mat(0xe33b36,.3));}
-for(const z of [-bodyL*.31,bodyL*.31]){makeWheel(carGroup,-bodyW*.49,z);makeWheel(carGroup,bodyW*.49,z);}
-box(carGroup,bodyW*.35,.24,.1,0,.88,bodyL*.51,darkMat);
-box(carGroup,bodyW*.3,.14,.08,0,.9,bodyL*.52,mat(0xaaaaaa,.3,.7));
-carGroup.rotation.y=-.42;carGroup.position.y=-.05;
-}
-try{
-scene=new THREE.Scene();scene.background=new THREE.Color(0x151922);scene.fog=new THREE.Fog(0x151922,12,24);
-camera=new THREE.PerspectiveCamera(40,1,.1,100);camera.position.set(4.6,3.5,zoom);camera.lookAt(0,1,0);
-renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:false});renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.7));renderer.outputColorSpace=THREE.SRGBColorSpace;
-scene.add(new THREE.HemisphereLight(0xffffff,0x424858,2.2));const key=new THREE.DirectionalLight(0xffffff,3.2);key.position.set(4,7,5);scene.add(key);const fill=new THREE.DirectionalLight(0x91b9ff,1.2);fill.position.set(-5,3,-4);scene.add(fill);
-const floor=new THREE.Mesh(new THREE.PlaneGeometry(200,200),mat(0x171b23,.85));floor.rotation.x=-Math.PI/2;floor.position.y=.02;scene.add(floor);
-const grid=new THREE.GridHelper(18,18,0x4a4f5c,0x272c36);grid.position.y=.035;scene.add(grid);
-buildCar();
-function resize(){const w=canvas.clientWidth||300,h=canvas.clientHeight||280;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();}window.addEventListener("resize",resize);resize();
-function animate(){requestAnimationFrame(animate);if(autoRotate&&carGroup)carGroup.rotation.y+=.008;renderer.render(scene,camera);}animate();
-}catch(e){$("viewerStatus").textContent="3D needs a browser with WebGL support. Try updating Chrome.";}
-function setZoom(v){zoom=Math.max(4.4,Math.min(11,zoom+v));camera.position.set(Math.sin(.58)*zoom,3.5,Math.cos(.58)*zoom);camera.lookAt(0,1,0);}
-$("zoomIn").addEventListener("click",()=>setZoom(-.65));$("zoomOut").addEventListener("click",()=>setZoom(.65));$("resetView").addEventListener("click",()=>{zoom=baseZoom;if(carGroup)carGroup.rotation.y=-.42;camera.position.set(4.6,3.5,zoom);camera.lookAt(0,1,0);autoRotate=false;$("rotateBtn").textContent="⟳ Rotate";});
-$("rotateBtn").addEventListener("click",()=>{autoRotate=!autoRotate;$("rotateBtn").textContent=autoRotate?"Ⅱ Pause":"⟳ Rotate";});
-canvas.addEventListener("pointerdown",e=>{dragging=true;lastX=e.clientX;lastY=e.clientY;canvas.setPointerCapture(e.pointerId);});
-canvas.addEventListener("pointermove",e=>{if(!dragging||!carGroup)return;const dx=e.clientX-lastX;const dy=e.clientY-lastY;lastX=e.clientX;lastY=e.clientY;carGroup.rotation.y+=dx*.012;carGroup.rotation.x=Math.max(-.18,Math.min(.18,carGroup.rotation.x+dy*.003));autoRotate=false;$("rotateBtn").textContent="⟳ Rotate";});
-canvas.addEventListener("pointerup",()=>dragging=false);canvas.addEventListener("pointercancel",()=>dragging=false);
-canvas.addEventListener("wheel",e=>{e.preventDefault();setZoom(e.deltaY>0?.45:-.45);},{passive:false});
-canvas.addEventListener("touchstart",e=>{if(e.touches.length===2)pinchStart=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);},{passive:true});
-canvas.addEventListener("touchmove",e=>{if(e.touches.length===2){const dist=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);if(Math.abs(dist-pinchStart)>5){setZoom(dist>pinchStart?-.18:.18);pinchStart=dist;}}},{passive:true});
-fillBrands();fillModels();renderAccessories();renderBrandCards();renderInterior();updateTotal();updateSummary();
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
+const canvas=document.getElementById('carCanvas');let renderer,scene,camera,car,paint,seatMat,zoom=7.5,rotating=false,drag=false,px=0,py=0;
+const bodyMat=()=>new THREE.MeshStandardMaterial({color:0xd93434,metalness:.3,roughness:.32});
+function box(parent,w,h,d,x,y,z,mat){const m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),mat);m.position.set(x,y,z);parent.add(m);return m;}
+function wheel(parent,x,z){const tire=new THREE.Mesh(new THREE.CylinderGeometry(.42,.42,.25,24),new THREE.MeshStandardMaterial({color:0x16181c,roughness:.85}));tire.rotation.x=Math.PI/2;tire.position.set(x,.48,z);parent.add(tire);const rim=new THREE.Mesh(new THREE.CylinderGeometry(.23,.23,.27,20),new THREE.MeshStandardMaterial({color:0xb9c0ca,metalness:.8,roughness:.25}));rim.rotation.x=Math.PI/2;rim.position.set(x,.48,z);parent.add(rim);}
+function build(){if(car)scene.remove(car);car=new THREE.Group();scene.add(car);paint=bodyMat();seatMat=new THREE.MeshStandardMaterial({color:0x202124,roughness:.75});const glass=new THREE.MeshStandardMaterial({color:0x8bb9cc,metalness:.1,roughness:.22});const dark=new THREE.MeshStandardMaterial({color:0x252a32,metalness:.25});const model=document.getElementById('model').value.toLowerCase();const suv=/thar|scorpio|bolero|fortuner|gurkha|xuv|harrier|safari|brezza|punch|nexon|creta|seltos|venue|jimny|gloster/.test(model);const w=suv?2.15:1.85,l=suv?3.5:3.1,h=suv?1.0:.75;box(car,w,h,l,0,.95,0,paint);box(car,w*.78,suv?1:.78,l*.48,0,1.68,-.1,paint);box(car,w*.7,.65,l*.42,0,1.72,-.1,glass);box(car,w*.8,.1,l*.5,0,2.05,-.1,paint);box(car,w*.86,.13,l*.17,0,1.1,l*.43,dark);for(const x of [-w*.49,w*.49]){wheel(car,x,-l*.31);wheel(car,x,l*.31);box(car,.07,.13,.32,x,1.12,l*.42,new THREE.MeshStandardMaterial({color:0xffe7a0}));box(car,.07,.13,.32,x,1.12,-l*.42,new THREE.MeshStandardMaterial({color:0xe33b36}));}for(const x of [-.48,.48]){box(car,.35,.4,.28,x,1.36,.05,seatMat);}if(window.currentMods?.includes('spoiler'))box(car,w*.7,.1,.18,0,1.65,-l*.48,dark);if(window.currentMods?.includes('bodykit'))box(car,w+.1,.12,l*.78,0,.5,0,dark);if(window.currentMods?.includes('roof'))box(car,w*.8,.08,l*.5,0,2.08,-.1,dark);if(window.currentMods?.includes('display'))box(car,.34,.23,.08,0,1.43,.12,dark);if(window.currentMods?.includes('camera')){const cam=new THREE.Mesh(new THREE.SphereGeometry(.07,12,8),dark);cam.position.set(0,1.1,-l*.51);car.add(cam);}car.rotation.y=-.4;car.position.y=.05;}
+try{scene=new THREE.Scene();scene.background=new THREE.Color(0x151922);camera=new THREE.PerspectiveCamera(40,1,.1,100);camera.position.set(4.5,3.4,zoom);camera.lookAt(0,1,0);renderer=new THREE.WebGLRenderer({canvas,antialias:true});renderer.setPixelRatio(Math.min(devicePixelRatio||1,1.6));renderer.outputColorSpace=THREE.SRGBColorSpace;scene.add(new THREE.HemisphereLight(0xffffff,0x424858,2));const light=new THREE.DirectionalLight(0xffffff,3);light.position.set(4,7,5);scene.add(light);const fill=new THREE.DirectionalLight(0x91b9ff,1);fill.position.set(-5,3,-4);scene.add(fill);const floor=new THREE.Mesh(new THREE.PlaneGeometry(100,100),new THREE.MeshStandardMaterial({color:0x171b23,roughness:.9}));floor.rotation.x=-Math.PI/2;floor.position.y=.02;scene.add(floor);scene.add(new THREE.GridHelper(18,18,0x454b58,0x272c36));build();function resize(){const w=canvas.clientWidth||300,h=canvas.clientHeight||300;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();}window.addEventListener('resize',resize);resize();function tick(){requestAnimationFrame(tick);if(rotating&&car)car.rotation.y+=.008;renderer.render(scene,camera);}tick();
+window.update3DCar=()=>{build();};window.update3DStyle=({bodyColor,seatColor,selected})=>{window.currentMods=selected;if(paint)paint.color.set(bodyColor);if(seatMat)seatMat.color.set(seatColor);if(car){const y=car.rotation.y;build();car.rotation.y=y;}};canvas.addEventListener('pointerdown',e=>{drag=true;px=e.clientX;py=e.clientY;canvas.setPointerCapture(e.pointerId);});canvas.addEventListener('pointermove',e=>{if(!drag||!car)return;car.rotation.y+=(e.clientX-px)*.012;car.rotation.x=Math.max(-.15,Math.min(.15,car.rotation.x+(e.clientY-py)*.003));px=e.clientX;py=e.clientY;rotating=false;document.getElementById('autoRotate').textContent='⟳ Rotate';});canvas.addEventListener('pointerup',()=>drag=false);canvas.addEventListener('pointercancel',()=>drag=false);
+function setZoom(delta){zoom=Math.max(4.5,Math.min(11,zoom+delta));camera.position.set(Math.sin(.58)*zoom,3.4,Math.cos(.58)*zoom);camera.lookAt(0,1,0);}document.getElementById('zoomIn').onclick=()=>setZoom(-.7);document.getElementById('zoomOut').onclick=()=>setZoom(.7);document.getElementById('reset').onclick=()=>{zoom=7.5;camera.position.set(4.5,3.4,zoom);camera.lookAt(0,1,0);if(car){car.rotation.set(0,-.4,0);}rotating=false;document.getElementById('autoRotate').textContent='⟳ Rotate';};document.getElementById('autoRotate').onclick=()=>{rotating=!rotating;document.getElementById('autoRotate').textContent=rotating?'Ⅱ Pause':'⟳ Rotate';};
+}catch(e){document.getElementById('viewerModel').textContent='3D UNAVAILABLE';document.querySelector('.hint').textContent='3D engine could not load. Car selector and customization menus should still work.';}
 </script>
 </body>
 </html>
