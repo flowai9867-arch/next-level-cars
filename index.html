@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#090b0f">
+<title>NEXT LEVEL | Indian Car Customization</title>
+<style>
+:root{--bg:#090b0f;--panel:#141820;--line:#303641;--gold:#f1c45a;--muted:#aeb5c1}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#f7f7f8;font-family:Arial,Helvetica,sans-serif}button,select,input{font:inherit}button{cursor:pointer}
+header{padding:20px 16px;border-bottom:1px solid var(--line);background:#0c0e13;position:sticky;top:0;z-index:5}.brand{font-weight:900;letter-spacing:2px;font-size:24px;color:var(--gold)}.tagline{font-size:10px;letter-spacing:2px;color:var(--muted);margin-top:7px}
+main{max-width:1000px;margin:auto;padding:18px 14px 40px}.eyebrow{font-size:11px;letter-spacing:2px;color:var(--gold);font-weight:bold}h1{font-size:clamp(30px,8vw,54px);line-height:1.04;margin:12px 0}.gold{color:var(--gold)}.muted{color:var(--muted);line-height:1.55}.section-title{font-size:22px;margin:28px 0 12px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:15px;margin-top:15px}
+label{display:block;color:#cbd0d9;font-size:13px;margin:13px 0 7px}select,input{width:100%;padding:13px;border:1px solid #454c58;border-radius:10px;background:#0d1016;color:#fff}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.tile{border:1px solid var(--line);border-radius:12px;padding:12px;background:#10141b;text-align:left;color:#fff;min-height:85px}.tile strong{display:block;margin-bottom:6px}.tile small{color:var(--muted);line-height:1.4}.tile.active{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold)}
+.preview{border-radius:14px;min-height:180px;background:radial-gradient(ellipse at center,#313948,#10131a 68%);display:flex;align-items:center;justify-content:center;flex-direction:column;padding:18px;text-align:center}.car-icon{font-size:76px;filter:drop-shadow(0 10px 8px #0008)}.preview-name{font-weight:bold;font-size:20px;margin-top:8px}.pill{display:inline-block;border:1px solid #555d69;border-radius:99px;padding:5px 9px;color:#d5d9df;font-size:11px;margin-top:8px}
+.colors{display:flex;gap:12px;flex-wrap:wrap}.swatch{width:38px;height:38px;border-radius:50%;border:2px solid #fff5;cursor:pointer}.swatch.active{outline:2px solid var(--gold);outline-offset:3px}
+.primary{background:var(--gold);color:#151515;border:0;border-radius:10px;padding:14px;font-weight:800;width:100%;margin-top:15px}.secondary{background:#222833;color:white;border:1px solid #454c58;border-radius:10px;padding:12px;width:100%;margin-top:8px}.status{font-size:13px;color:var(--gold);min-height:18px}.checkrow{display:flex;gap:9px;align-items:center;padding:10px 0;border-bottom:1px solid #2a3039}.checkrow input{width:auto;accent-color:var(--gold)}.price{font-size:23px;color:var(--gold);font-weight:bold}.foot{border-top:1px solid var(--line);padding:24px 15px;text-align:center;color:var(--muted);font-size:12px}
+@media(min-width:700px){.layout{display:grid;grid-template-columns:1fr 1fr;gap:18px}.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+</style>
+</head>
+<body>
+<header><div class="brand">NEXT LEVEL®</div><div class="tagline">INDIAN CAR CUSTOMIZATION STUDIO</div></header>
+<main>
+<p class="eyebrow">BUILD YOUR DREAM RIDE</p>
+<h1>Your Car.<br><span class="gold">Your Rules.</span></h1>
+<p class="muted">Choose an Indian car, select accessories and plan your custom interior. Start with a visual prototype and build your style.</p>
+
+<div class="layout">
+<section class="panel">
+<div class="eyebrow">01 / CAR SELECTOR</div>
+<label for="brand">Choose brand</label>
+<select id="brand"></select>
+<label for="model">Choose model</label>
+<select id="model"></select>
+<label for="variant">Variant / trim (optional)</label>
+<select id="variant"><option>Standard</option><option>Base</option><option>Mid</option><option>Top</option><option>Custom build</option></select>
+<div class="preview" style="margin-top:15px">
+<div class="car-icon" aria-hidden="true">🚙</div>
+<div id="previewName" class="preview-name">Mahindra Thar</div>
+<div class="pill">2D PREVIEW • 3D MODEL NOT CONNECTED</div>
+</div>
+<label>Body colour</label>
+<div class="colors" id="colors">
+<button class="swatch active" aria-label="Red" style="background:#d93434" data-color="#d93434"></button>
+<button class="swatch" aria-label="White" style="background:#f1f1ed" data-color="#f1f1ed"></button>
+<button class="swatch" aria-label="Black" style="background:#17191e" data-color="#17191e"></button>
+<button class="swatch" aria-label="Gold" style="background:#d5a735" data-color="#d5a735"></button>
+<button class="swatch" aria-label="Blue" style="background:#2456a6" data-color="#2456a6"></button>
+<button class="swatch" aria-label="Green" style="background:#426c4a" data-color="#426c4a"></button>
+</div>
+<button class="primary" id="saveBuild">Save my build</button>
+<div class="status" id="buildStatus" aria-live="polite"></div>
+</section>
+
+<section class="panel">
+<div class="eyebrow">02 / ACCESSORY STUDIO</div>
+<p class="muted">Select the accessories you want to include in your planned build.</p>
+<div id="accessories"></div>
+<div style="margin-top:16px">Estimated accessory budget</div>
+<div class="price" id="total">₹0</div>
+<p class="muted" style="font-size:12px">Illustrative estimates only. Actual prices depend on car model, material, fitment and local shop.</p>
+<button class="secondary" id="clearAccessories">Clear accessories</button>
+</section>
+</div>
+
+<section>
+<h2 class="section-title">Explore Indian car brands</h2>
+<div class="grid" id="brandCards"></div>
+<p class="muted" style="font-size:12px">Catalogue includes popular models; it is not a guarantee of every current or discontinued model or variant. Verify availability for your year and location.</p>
+</section>
+
+<section class="panel">
+<div class="eyebrow">03 / INTERIOR DESIGN</div>
+<h2 style="margin:8px 0">Make the cabin yours</h2>
+<div class="grid" id="interiorOptions"></div>
+<label for="notes">Custom design notes</label>
+<input id="notes" placeholder="e.g. black seat covers, red stitching, 7D mats">
+<button class="primary" id="saveDesign">Save interior plan</button>
+<div class="status" id="designStatus" aria-live="polite"></div>
+</section>
+
+<section class="panel">
+<div class="eyebrow">04 / YOUR BUILD SUMMARY</div>
+<div id="summary" class="muted">Choose a car and accessories to see your plan.</div>
+<button class="primary" id="shareBuild">Share / copy build summary</button>
+<div class="status" id="shareStatus" aria-live="polite"></div>
+</section>
+</main>
+<footer>© 2026 NEXT LEVEL • Independent customization concept. Vehicle names belong to their respective owners. Not affiliated with car manufacturers.</footer>
+<script>
+const catalogue = {
+"Maruti Suzuki":["Alto K10","S-Presso","Celerio","Wagon R","Swift","Dzire","Baleno","Fronx","Brezza","Ertiga","XL6","Grand Vitara","Jimny","Invicto","Eeco","Ignis","Victor​is"],
+"Mahindra":["Thar","Thar ROXX","Scorpio-N","Scorpio Classic","Bolero","Bolero Neo","XUV 3XO","XUV700","BE 6","XEV 9e"],
+"Tata Motors":["Tiago","Tigor","Alt​roz","Punch","Nexon","Curvv","Harrier","Safari","Punch EV","Nexon EV","Tiago EV","Curvv EV","Harrier EV"],
+"Hyundai":["Grand i10 Nios","i20","Aura","Exter","Venue","Creta","Alcazar","Verna","Ioniq 5"],
+"Kia":["Sonet","Seltos","Carens","Carens Clavis","Syros","EV6","EV9"],
+"Toyota":["Glanza","Taisor","Rumion","Urban Cruiser Hyryder","Innova Crysta","Innova Hycross","Fortuner","Hilux","Camry","Land Cruiser 300"],
+"Honda":["Amaze","City","Elevate"],
+"Renault":["Kwid","Triber","Kiger"],
+"Nissan":["Magnite","X-Trail"],
+"MG":["Comet EV","Windsor EV","Astor","Hector","Hector Plus","Gloster","ZS EV"],
+"Volkswagen":["Virtus","Taigun","Tiguan"],
+"Skoda":["Slavia","Kushaq","Kylaq","Kodiaq"],
+"Citroën":["C3","C3 Aircross","Basalt","eC3"],
+"Force Motors":["Gurkha","Urbania"],
+"Isuzu":["D-Max V-Cross","MU-X"],
+"BYD":["Atto 3","Seal","eMax 7","Sealion 7"],
+"VinFast":["VF 6","VF 7"]
+};
+const accessories=[
+["Seat covers","₹2,500–₹18,000",5500],["3D / 7D floor mats","₹1,000–₹6,000",2500],["Dashboard trim","₹800–₹5,000",1800],["Door-panel upholstery","₹1,500–₹8,000",3000],["Ambient cabin lighting","₹1,000–₹7,000",2500],["Steering cover","₹300–₹2,000",700],["Neck / lumbar cushions","₹400–₹2,500",900],["Touchscreen / infotainment","₹4,000–₹25,000",9000],["Speaker upgrade","₹2,000–₹18,000",6000],["Reverse camera","₹1,000–₹6,000",2500],["Door sill plates","₹500–₹3,000",1200],["Boot / trunk mat","₹700–₹3,500",1500],["Sunshades","₹300–₹2,000",700],["Exterior body kit","₹3,000–₹35,000",12000],["Alloy wheels (set)","₹15,000–₹80,000",30000],["LED lighting upgrade","₹1,000–₹12,000",4000]
+];
+const interiors=[
+["Black leatherette","Clean premium black cabin"],["Black + red stitching","Sporty contrast finish"],["Beige luxury","Light, airy look"],["Tan / brown","Classic warm interior"],["7D mats + matching trim","Coordinated floor and panels"],["Ambient lighting","Choose a subtle cabin glow"]
+];
+let chosenColor="#d93434";
+const $=id=>document.getElementById(id);
+function fillBrands(){ $("brand").innerHTML=Object.keys(catalogue).map(b=>`<option>${b}</option>`).join("");}
+function fillModels(){let b=$("brand").value; $("model").innerHTML=catalogue[b].map(m=>`<option>${m.replace(/\u200b/g,"")}</option>`).join("");updatePreview();}
+function updatePreview(){ $("previewName").textContent=$("brand").value+" "+$("model").value; }
+function renderAccessories(){ $("accessories").innerHTML=accessories.map((a,i)=>`<label class="checkrow"><input type="checkbox" data-index="${i}"><span style="flex:1">${a[0]}<br><small style="color:#aeb5c1">${a[1]}</small></span></label>`).join("");$("accessories").querySelectorAll("input").forEach(x=>x.addEventListener("change",updateTotal));}
+function updateTotal(){let sum=0;$("accessories").querySelectorAll("input:checked").forEach(x=>sum+=accessories[+x.dataset.index][2]);$("total").textContent="₹"+sum.toLocaleString("en-IN")+" approx.";}
+function renderBrandCards(){ $("brandCards").innerHTML=Object.entries(catalogue).map(([b,models])=>`<button class="tile" data-brand="${b}"><strong>${b}</strong><small>${models.length} popular models<br>${models.slice(0,4).join(" • ")}</small></button>`).join("");$("brandCards").querySelectorAll("button").forEach(btn=>btn.addEventListener("click",()=>{$("brand").value=btn.dataset.brand;fillModels();window.scrollTo({top:0,behavior:"smooth"});}));}
+function renderInterior(){ $("interiorOptions").innerHTML=interiors.map((x,i)=>`<label class="tile"><input type="radio" name="interior" value="${x[0]}" ${i===0?"checked":""} style="width:auto;margin:0 0 10px;accent-color:#f1c45a"><strong>${x[0]}</strong><small>${x[1]}</small></label>`).join("");}
+function getBuild(){let selected=[...$("accessories").querySelectorAll("input:checked")].map(x=>accessories[+x.dataset.index][0]);return {brand:$("brand").value,model:$("model").value,variant:$("variant").value,colour:chosenColor,accessories:selected,estimatedBudget:$("total").textContent,interior:document.querySelector('input[name="interior"]:checked')?.value||"Not selected",notes:$("notes").value.trim()};}
+$("brand").addEventListener("change",fillModels);$("model").addEventListener("change",updatePreview);
+$("colors").querySelectorAll("button").forEach(btn=>btn.addEventListener("click",()=>{chosenColor=btn.dataset.color;$("colors").querySelectorAll("button").forEach(b=>b.classList.toggle("active",b===btn));$("buildStatus").textContent="Colour selected: "+chosenColor;}));
+$("saveBuild").addEventListener("click",()=>{let b=getBuild();try{localStorage.setItem("nextLevelBuild",JSON.stringify(b));$("buildStatus").textContent="Build saved on this device.";}catch(e){$("buildStatus").textContent="Build prepared. Take a screenshot or use Share summary."; }});
+$("clearAccessories").addEventListener("click",()=>{$("accessories").querySelectorAll("input").forEach(x=>x.checked=false);updateTotal();});
+$("saveDesign").addEventListener("click",()=>{let b=getBuild();try{localStorage.setItem("nextLevelInterior",JSON.stringify({interior:b.interior,notes:b.notes,car:b.brand+" "+b.model}));$("designStatus").textContent="Interior plan saved on this device.";}catch(e){$("designStatus").textContent="Interior plan selected: "+b.interior;}});
+$("shareBuild").addEventListener("click",async()=>{let b=getBuild();let txt=`NEXT LEVEL BUILD\nCar: ${b.brand} ${b.model}\nVariant: ${b.variant}\nColour: ${b.colour}\nInterior: ${b.interior}\nAccessories: ${b.accessories.join(", ")||"None selected"}\nEstimated accessory budget: ${b.estimatedBudget}\nNotes: ${b.notes||"None"}\nEstimates are illustrative; confirm local prices and fitment.`;try{if(navigator.share){await navigator.share({title:"My NEXT LEVEL build",text:txt});$("shareStatus").textContent="Share sheet opened.";}else if(navigator.clipboard){await navigator.clipboard.writeText(txt);$("shareStatus").textContent="Summary copied. Paste it into a message."; }else{$("shareStatus").textContent=txt;}}catch(e){$("shareStatus").textContent=txt;}});
+fillBrands();fillModels();renderAccessories();renderBrandCards();renderInterior();updateTotal();
+</script>
+</body>
+</html>
